@@ -1,0 +1,11 @@
+Swagger
+readme.md
+ppt
+schema.md
+abstract
+tech stack
+problem statement
+wikis act as documentation 
+How to use it 
+things needed / requirements
+Docker.md
