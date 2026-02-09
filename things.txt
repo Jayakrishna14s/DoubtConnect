@@ -9,3 +9,5 @@ wikis act as documentation
 How to use it 
 things needed / requirements
 Docker.md
+Single source of truth
+Binding componenets driven to states 
