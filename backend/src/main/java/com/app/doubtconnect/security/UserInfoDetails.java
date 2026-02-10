@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 public class UserInfoDetails implements UserDetails {
 
-    private Integer userID;
+    private String username;
     private String password;
     private List<GrantedAuthority> authorities;
 
     public UserInfoDetails(User payload) {
-        this.userID = payload.getUserID(); // Assuming 'name' is used as 'username'
+        this.username = payload.getUsername(); // Assuming 'name' is used as 'username'
         this.password = payload.getPassword();
         this.authorities = List.of(payload.getRole().split(","))
                 .stream()
@@ -38,11 +38,7 @@ public class UserInfoDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userID + "";
-    }
-
-    public int getUserID() {
-        return userID;
+        return username;
     }
 
     @Override

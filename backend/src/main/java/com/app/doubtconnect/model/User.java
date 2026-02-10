@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userID;
+    private Long userID;
 
 
     @Column( nullable = false, unique = true)
@@ -26,9 +26,6 @@ public class User implements UserDetails {
     private String lastName;
 
 
-
-
-
     @Column(nullable = false)
     private String password;
 
@@ -37,7 +34,7 @@ public class User implements UserDetails {
     @Column
     private String role = "ROLE_USER";
 
-    public void setUserID(Integer userID) {
+    public void setUserID(Long userID) {
         this.userID = userID;
     }
 
@@ -61,7 +58,7 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public Integer getUserID() {
+    public Long getUserID() {
         return userID;
     }
 
@@ -93,7 +90,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userID + "";
+        return this.email;
     }
 
     @Override
