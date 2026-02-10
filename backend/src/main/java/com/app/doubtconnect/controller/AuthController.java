@@ -1,41 +1,43 @@
 package com.app.doubtconnect.controller;
 
-
+import com.app.doubtconnect.dto.AuthResponse;
+import com.app.doubtconnect.dto.LoginDTO;
 import com.app.doubtconnect.dto.SignupDTO;
 import com.app.doubtconnect.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.app.doubtconnect.dto.LoginDTO;
 import jakarta.servlet.http.HttpServletResponse;
-
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignupDTO signupDTO) {
-        return authService.signup(signupDTO);
+    public ResponseEntity<AuthResponse> signup(@RequestBody SignupDTO payload) {
+        authService.signup(payload);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new AuthResponse("Signup successful"));
     }
 
     @PostMapping("/login")
-    @Async
-    public ResponseEntity<?> login(@RequestBody LoginDTO payload, HttpServletResponse response) {
-        return authService.login(payload, response);
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody LoginDTO payload,
+            HttpServletResponse response
+    ) {
+        authService.login(payload, response);
+        return ResponseEntity.ok(new AuthResponse("Login successful"));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response) {
-        return authService.logout(response);
+    public ResponseEntity<AuthResponse> logout(HttpServletResponse response) {
+        authService.logout(response);
+        return ResponseEntity.ok(new AuthResponse("Logged out successfully"));
     }
-
 }

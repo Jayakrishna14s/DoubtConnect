@@ -1,7 +1,6 @@
 package com.app.doubtconnect.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;

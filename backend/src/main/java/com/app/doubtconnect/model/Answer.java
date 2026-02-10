@@ -24,4 +24,36 @@ public class Answer {
             nullable = false
     )
     private User user;
+
+    public Long getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(Long answerId) {
+        this.answerId = answerId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Doubt getDoubt() {
+        return doubt;
+    }
+
+    public void setDoubt(Doubt doubt) {
+        this.doubt = doubt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

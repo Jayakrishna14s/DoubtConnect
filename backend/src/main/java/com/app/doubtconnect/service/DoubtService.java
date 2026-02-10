@@ -1,79 +1,83 @@
 package com.app.doubtconnect.service;
 
-
 import com.app.doubtconnect.dto.DoubtDTO;
+import com.app.doubtconnect.dto.DoubtResponse;
 import com.app.doubtconnect.model.Doubt;
 import com.app.doubtconnect.model.User;
 import com.app.doubtconnect.repository.DoubtRepository;
 import com.app.doubtconnect.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class DoubtService {
 
-    @Autowired
-    private DoubtRepository doubtRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final DoubtRepository doubtRepository;
+    private final UserRepository userRepository;
 
-    public String getUsername() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
+    private String getUsername() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
 
-    public ResponseEntity<?> postDoubt(DoubtDTO payload) throws Exception {
-        String username = getUsername();
+    public DoubtResponse postDoubt(DoubtDTO payload) {
+
+        User user = userRepository.findByUsername(getUsername())
+                .orElseThrow(() -> new RuntimeException("Unauthenticated user"));
 
         Doubt doubt = new Doubt();
         doubt.setTitle(payload.getTitle());
         doubt.setDescription(payload.getDescription());
+        doubt.setUser(user);
 
-
-        Optional<User> user = userRepository.findByUsername(username);
-        if(user.isEmpty()) {
-            throw new Exception("Unauthenticated User");
-        }
-
-        doubt.setUser(user.get());
-        return ResponseEntity.ok(doubtRepository.save(doubt));
+        return DoubtResponse.from(doubtRepository.save(doubt));
     }
 
+    public List<DoubtResponse> postDoubts(List<DoubtDTO> payloads) {
 
+        User user = userRepository.findByUsername(getUsername())
+                .orElseThrow(() -> new RuntimeException("Unauthenticated user"));
 
-    public ResponseEntity<?> getDoubt(Long doubtId) {
-        Optional<Doubt> doubt = doubtRepository.findById(doubtId);
+        List<Doubt> doubts = payloads.stream()
+                .map(dto -> {
+                    Doubt d = new Doubt();
+                    d.setTitle(dto.getTitle());
+                    d.setDescription(dto.getDescription());
+                    d.setUser(user);
+                    return d;
+                })
+                .toList();
 
-        if (doubt.isPresent()) {
-            System.out.println(doubt.get());
-            System.out.println(doubtId);
-            return ResponseEntity.ok(doubt.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
+        return doubtRepository.saveAll(doubts)
+                .stream()
+                .map(DoubtResponse::from)
+                .toList();
     }
 
-    public ResponseEntity<?> getFeed() {
-        String username = getUsername();
-        List<Doubt> feed = doubtRepository.findByUserUsernameNot(username);
-        return ResponseEntity.ok(feed);
+    public DoubtResponse getDoubt(Long id) {
+        Doubt doubt = doubtRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Doubt not found"));
+        return DoubtResponse.from(doubt);
     }
 
-    public ResponseEntity<?> getMyDoubts() {
-        String username = getUsername();
-        List<Doubt> myDoubts = doubtRepository.findByUserUsername(username);
-        if(myDoubts.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(myDoubts);
+    public List<DoubtResponse> getFeed() {
+        return doubtRepository.findByUserUsernameNot(getUsername())
+                .stream()
+                .map(DoubtResponse::from)
+                .toList();
+    }
+
+    public List<DoubtResponse> getMyDoubts() {
+        return doubtRepository.findByUserUsername(getUsername())
+                .stream()
+                .map(DoubtResponse::from)
+                .toList();
     }
 }
