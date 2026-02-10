@@ -20,6 +20,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> signup(@RequestBody SignupDTO payload) {
+
         authService.signup(payload);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
