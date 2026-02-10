@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DoubtConnectApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Hwllo world");
 		SpringApplication.run(DoubtConnectApplication.class, args);
+		System.out.print("Hwllo World");
 	}
 
 }

@@ -11,3 +11,9 @@ things needed / requirements
 Docker.md
 Single source of truth
 Binding componenets driven to states 
+Mounting, Unmounting of components
+XML HTTP REQUEST
+AJAX
+get post put patch delete
+Interceptor
+Manual API creation in react with properties - baseUrl, ETC and default headers setup - reusable 
