@@ -1,0 +1,75 @@
+.dashboard-page {
+    min-height: 100vh;
+    background: white;
+    color: #2b2b2b;
+  }
+  
+  .dashboard-header {
+    padding: 30px 70px;
+  }
+  
+  .dashboard-content {
+    padding: 60px 70px;
+  }
+  
+  .dashboard-content h1 {
+    font-size: 36px;
+    color: #2f2b6f;
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-content p {
+    color: #4a4a7a;
+    margin-bottom: 50px;
+    max-width: 600px;
+  }
+  
+  .dashboard-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+  }
+  
+  .action-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .action-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  }
+  
+  .action-card .icon {
+    font-size: 32px;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+  
+  .action-card h3 {
+    color: #2f2b6f;
+    margin-bottom: 6px;
+  }
+  
+  .action-card p {
+    font-size: 14px;
+    color: #6b6b9a;
+  }
+  
+  /* Accent colors */
+  .action-card.home {
+    border-top: 4px solid #6f5cff;
+  }
+  
+  .action-card.search {
+    border-top: 4px solid #4bb3fd;
+  }
+  
+  .action-card.profile {
+    border-top: 4px solid #ff7aa2;
+  }
+  

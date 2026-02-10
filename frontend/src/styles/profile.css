@@ -1,0 +1,133 @@
+.profile-page {
+  min-height: 100vh;
+  background:white;
+  color: #2b2b2b;
+}
+
+.profile-header {
+  padding: 30px 70px;
+}
+
+.profile-content {
+  padding: 40px 70px;
+}
+
+.profile-card {
+  background: white;
+  padding: 40px 50px;  /* Increased padding for more space */
+  width: 500px;  /* Increased width for the profile card */
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  text-align: center;
+}
+
+.profile-card h2 {
+  font-size: 28px;  /* Increased heading size */
+  color: #2f2b6f;
+  margin-bottom: 20px;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.profile-pic img {
+  width: 150px;  /* Increased size */
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #6f5cff;
+  margin-right: 20px; /* Space between profile picture and details */
+}
+
+.profile-details {
+  text-align: left;
+  font-size: 16px;
+  color: #4a4a7a;
+}
+
+.profile-details p {
+  margin: 10px 0;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: space-between; /* Buttons side by side */
+  margin-top: 20px;
+}
+
+.profile-actions .action-btn {
+  background: linear-gradient(135deg, #6f5cff, #8b7bff);
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 10px;
+  width: 45%;  /* Button width to fit side by side */
+}
+
+.profile-actions .action-btn:hover {
+  background: linear-gradient(135deg, #8b7bff, #6f5cff);
+  box-shadow: 0 8px 25px rgba(111, 92, 255, 0.2);
+}
+
+/* Styling for the content section */
+.content-section {
+  margin-top: 20px;
+}
+
+.content-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.content-section li {
+  font-size: 16px;
+  color: #4a4a7a;
+  margin-bottom: 10px;
+}
+
+  
+  /* Footer styles */
+.footer {
+  position: fixed;
+  top: 20px;      /* Positioning to the top */
+  right: 20px;    /* Keep it aligned to the right */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;      /* Space between icons */
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 15px;      /* Space between the buttons */
+}
+
+.footer-btn {
+  background: linear-gradient(135deg, #6f5cff, #8b7bff);
+  border: none;
+  padding: 8px 16px;  /* Small buttons */
+  border-radius: 10px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-btn:hover {
+  background: linear-gradient(135deg, #8b7bff, #6f5cff);
+}
+
+.footer-btn:focus {
+  outline: none;
+}

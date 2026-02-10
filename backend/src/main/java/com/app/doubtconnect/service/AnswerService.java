@@ -57,7 +57,10 @@ public class AnswerService {
         Answer answer = answerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
 
-        answerRepository.delete(answer);
+        Doubt doubt = answer.getDoubt();
+
+        doubt.getAnswers().remove(answer);
+
         return AnswerResponse.from(answer);
 
     }
