@@ -1,23 +1,26 @@
 package com.app.doubtconnect.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class User implements UserDetails {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long userID;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userID;
-
-
-    @Column( nullable = false, unique = true)
-    private String email;
+    private String username;
 
     @Column(nullable = false)
     private String firstName;
@@ -25,21 +28,38 @@ public class User implements UserDetails {
     @Column
     private String lastName;
 
-
     @Column(nullable = false)
     private String password;
-
-
 
     @Column
     private String role = "ROLE_USER";
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+
+
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setFirstName(String firstName) {
@@ -58,40 +78,12 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public Long getUserID() {
-        return userID;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
 
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
 
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
 
     @Override
     public boolean isAccountNonExpired() {

@@ -15,4 +15,8 @@ public interface DoubtRepository extends JpaRepository<Doubt, Long> {
     Optional<Doubt> findByDoubtId(Long doubtId);
     List<Doubt> findByUser(User user);
 
+    List<Doubt> findByUserUsernameNot(String username);
+    List<Doubt> findByUserUsername(String username);
+
+
 }

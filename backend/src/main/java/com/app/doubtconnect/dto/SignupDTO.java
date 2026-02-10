@@ -1,13 +1,13 @@
 package com.app.doubtconnect.dto;
 
 public class SignupDTO {
-    private String email;
+    private String username;
     private String firstName;
     private String lastName;
     private String password;
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
     public String getFirstName() {
@@ -22,8 +22,8 @@ public class SignupDTO {
         return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public void setFirstName(String firstName) {

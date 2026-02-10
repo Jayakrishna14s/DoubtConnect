@@ -1,6 +1,5 @@
 package com.app.doubtconnect.service;
 
-
 import com.app.doubtconnect.dto.LoginDTO;
 import com.app.doubtconnect.dto.SignupDTO;
 import com.app.doubtconnect.model.User;
@@ -9,6 +8,8 @@ import com.app.doubtconnect.security.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 public class AuthService {
 
     @Autowired
@@ -35,15 +35,17 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private Logger log = LoggerFactory.getLogger(AuthService.class);
+
     public ResponseEntity<?> signup(SignupDTO payload) {
-        if (userRepository.findByEmail(payload.getEmail()).isPresent()) {
+        if (userRepository.findByUsername(payload.getUsername()).isPresent()) {
             return ResponseEntity
                     .badRequest()
                     .body("User already exists with this email");
         }
 
         User user = new User();
-        user.setEmail(payload.getEmail());
+        user.setUsername(payload.getUsername());
         user.setFirstName(payload.getFirstName());
         user.setLastName(payload.getLastName());
         user.setPassword(passwordEncoder.encode(payload.getPassword()));
@@ -51,7 +53,7 @@ public class AuthService {
 
         userRepository.save(user);
 
-        log.info("New user registered: {}", payload.getEmail());
+        log.info("New user registered: {}", payload.getUsername());
 
         return ResponseEntity.ok("Signup successful");
     }

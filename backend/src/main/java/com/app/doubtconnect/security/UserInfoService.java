@@ -7,9 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-//import com.evernorth.profilesetup.service.database.entity.User;
-//import com.evernorth.profilesetup.service.database.repository.UserRepository;
-
 import com.app.doubtconnect.model.User;
 import com.app.doubtconnect.repository.UserRepository;
 
@@ -24,7 +21,7 @@ public class UserInfoService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userDetail = repository.findByEmail(username);
+        Optional<User> userDetail = repository.findByUsername(username);
 
         // Converting UserInfo to UserDetails
         return userDetail.map(UserInfoDetails::new)

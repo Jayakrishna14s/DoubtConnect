@@ -22,7 +22,6 @@ import com.app.doubtconnect.security.UserInfoService;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity

@@ -1,10 +1,13 @@
 package com.app.doubtconnect.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
 
+
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Doubt {
 
@@ -18,11 +21,8 @@ public class Doubt {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-//    @Column(nullable = false)
-//    private String status = "OPEN";
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "asked_by", referencedColumnName = "email", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "asked_by", referencedColumnName = "username", nullable = false)
     private User user;
 
 
@@ -43,6 +43,13 @@ public class Doubt {
         this.description = description;
         this.user = user;
         this.answers = answers;
+    }
+
+    public Doubt(Long doubtId, String title, String description, User user ) {
+        this.doubtId = doubtId;
+        this.title = title;
+        this.description = description;
+        this.user = user;
     }
 
     public Long getDoubtId() {
