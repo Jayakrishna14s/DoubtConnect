@@ -15,10 +15,7 @@ export default function Index() {
           <a className="hover:underline">Community</a>
           <a className="hover:underline">Write</a>
           <a className="hover:underline">Sign in</a> */}
-        <Link
-          to="/login"
-          className="bg-black text-white px-5 py-2 rounded-full"
-        >
+        <Link to="/auth" className="bg-black text-white px-5 py-2 rounded-full">
           Get started
         </Link>
         {/* </nav> */}
@@ -40,7 +37,7 @@ export default function Index() {
           </p>
 
           <Link
-            to="/login"
+            to="/auth"
             className="inline-block mt-10 bg-black text-white px-8 py-3 rounded-full text-lg"
           >
             Start exploring
