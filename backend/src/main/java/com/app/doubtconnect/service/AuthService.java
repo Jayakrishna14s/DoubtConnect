@@ -2,6 +2,7 @@ package com.app.doubtconnect.service;
 
 import com.app.doubtconnect.dto.LoginDTO;
 import com.app.doubtconnect.dto.SignupDTO;
+import com.app.doubtconnect.dto.UserResponse;
 import com.app.doubtconnect.model.User;
 import com.app.doubtconnect.repository.UserRepository;
 import com.app.doubtconnect.security.JwtService;
@@ -12,10 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -83,5 +87,18 @@ public class AuthService {
         response.addCookie(cookie);
 
         log.info("User logged out");
+    }
+
+
+    public UserResponse getMe() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isEmpty()) {
+            throw new UsernameNotFoundException("User not found");
+        } else {
+            return UserResponse.from(user.get());
+        }
     }
 }

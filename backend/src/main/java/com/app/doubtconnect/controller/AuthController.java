@@ -3,6 +3,7 @@ package com.app.doubtconnect.controller;
 import com.app.doubtconnect.dto.AuthResponse;
 import com.app.doubtconnect.dto.LoginDTO;
 import com.app.doubtconnect.dto.SignupDTO;
+import com.app.doubtconnect.dto.UserResponse;
 import com.app.doubtconnect.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,5 +41,10 @@ public class AuthController {
     public ResponseEntity<AuthResponse> logout(HttpServletResponse response) {
         authService.logout(response);
         return ResponseEntity.ok(new AuthResponse("Logged out successfully"));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> me() {
+        return ResponseEntity.ok(authService.getMe());
     }
 }
